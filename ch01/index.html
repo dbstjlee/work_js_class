@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>index.html</h2>
+    <div>
+        <p><span>자바스크립트 형변환에 대해서 살펴보자</span></p>
+    </div>
+
+    <script>
+        console.log(hNum); // undefined
+        // console.log(dNum); // Uncaught
+        const num = 5; // 문자열로 인식함.
+        const str = "10";
+
+        const result = num + str; 
+        console.log(result); // 5 + "10" -> 덧셈 연산일 때 문자로 인식된다. 결과: "510"이다.
+        console.log("---------------------------------------")
+
+        const num1 = 10;
+        const str1 = '2';
+        const multiplyResult = num1 * str1; // 곱셈 연산 -> 문자열 타입을 숫자형으로 변환하여 곱셈
+        console.log(multiplyResult); // 20
+        console.log("---------------------------------------")
+
+        const divideResult = num1 / str1; // 나눗셈 연산 -> 문자열 타입을 숫자형으로 변환하여 나눗셈
+        console.log(divideResult);  // 5
+        console.log("---------------------------------------")
+
+        const moResult = num1 % str1; // 나머지 연산 -> 문자열 타입을 숫자형으로 변환하여 나머자 연산 처리
+        console.log(moResult); // 0
+        console.log("---------------------------------------")
+
+        var hNum = 10;
+        console.log(hNum); // 10
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .flex--container {
+            display: flex;
+        }
+        
+        .box {
+            border:  1px solid black;
+            padding:  10px;
+        }
+
+        #innerBox1 {
+            display: none;
+        }
+
+        #innerBox2 {
+            visibility: hidden;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>보이기</h1>
+    <!-- div.flex--container>button*2 -->
+    <div class="flex--container">
+        <!-- Inline Event Handler 방식 사용 -->
+        <button onclick="showDisplay()">display로 보이기</button>
+        <button onclick="showVisible()">visible로 보이기</button>
+
+        <!-- div.box -->
+        <div class="box">
+            <!-- div.box#innerBox1 -->
+            <div class="box" id="innerBox1">내부박스1</div>
+            <div class="box" id="innerBox2">내부박스2</div>
+        </div>
+    </div>
+
+    <script>
+        function showDisplay(){
+            let el = window.document.querySelector("#innerBox1");
+            el.style.display = 'block'; // 박스1이 보여짐.
+        }
+
+        function showVisible(){
+            let el = document.querySelector("#innerBox2");
+            el.style.visibility = "visible"; // 박스2가 보여짐.
+        }
+    </script>
+</body>
+</html>
