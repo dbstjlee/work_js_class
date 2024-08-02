@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <button onclick="fetchTodo1('2')">통신 요청</button>
+
+        <script>
+            // 네트워크 요청 처리 Fetch API 의 활용 
+            // 소화시키는 방법1
+            async function fetchTodo1(todoId) {
+
+                try {
+                    // 인수 1 -> URL  넣기 
+                    // fetch 함수는 미래타입으로 응답한다.
+                    let promiseData = await fetch(
+                        "https://jsonplaceholder.typicode.com/todos/" + todoId,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                        }
+                    );
+                    console.log("동기적 방식으로요청 및 파싱까지");
+                    // JSON 형식의 문자열을 변수에 저장 promiseData 데이터 타입을 사용하려면 await 키워드를 사용해주어야 한다.
+                    let todo = await promiseData.json();
+                    console.log("todo:" + todo);
+                } catch (error) {
+                    // 오류 발생 시 콘손에 입력
+                    console.log("error :" + error);
+                }
+            }
+
+            // 소화시키는 방법2 - 비동기 처리 then()과 catch 사용하기
+            function fetchTodo2(todoId) {
+                fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                })
+                    .then((proData) => {
+                        console.log("수행1");
+                        return proData.text(); // 응답 본문(body)을 문자열 변환 처리
+                    })
+                    .then((bodyText) => {
+                        console.log("수행2");
+                        const todo = JSON.parse(bodyText);
+                        console.log("파싱된 객체:", todo);
+                        console.log("completed:", todo.id);
+                        console.log("id:", todo.id);
+                        console.log("title:", todo.id);
+                        console.log("userId:", todo.id);
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+
+            // HTTP 1.1 <--- JSON - GET, POST () --> REST API -->  GET, POST, PUT,DELETE
+            // (PUT : 수정) PUT = 전체 수정 PATCH = 부분 수정
+
+            function fetchPost1() {
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {title: '서버에 자원 등록 요청', body: '비동기 통신 POST 처리 방식 연습', userId: 1}
+                    ) // js 객체임 .-> json 문자열로 반환해야 함.
+                })
+                    .then(response => {
+                        console.log('수행1');
+                        // console.log(response.text());
+                        console.log(response.json());
+                        // let resultBody = JSON.parse(response.text()); 
+                        // console.log("응답 받은 결과를 문자열에서 JS 객체로 변환 처리(파싱)", resultBody);
+                    })
+                    .then(proData => {
+                        console.log("수행1");
+                        return proData.text(); // 응답 본문(body)을 문자열 변환 처리
+                    })
+                    .then(bodyText => {
+                        console.log("수행2");
+                        const todo = JSON.parse(bodyText);
+                        console.log("파싱된 객체:", todo);
+                        console.log("completed:", todo.id);
+                        console.log("id:", todo.id);
+                        console.log("title:", todo.id);
+                        console.log("userId:", todo.id);
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                }
+            // fetchPost1();  함수 호출
+
+            function testPatch() {
+                fetch('https://jsonplaceholder.typicode.com/posts/1', {
+                    method: 'PATCH',
+                    body: JSON.stringify({
+                        title: 'foo'
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                })
+                    .then((response) => response.json())
+                    .then((json) => console.log(json));
+            }
+        </script>
+    </body>
+</html>
